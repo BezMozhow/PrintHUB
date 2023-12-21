@@ -1,0 +1,11 @@
+
+<h1>Advertising Order Details</h1>
+
+<p><strong>Width:</strong> <%= @advertising_order.ad_width %></p>
+<p><strong>Height:</strong> <%= @advertising_order.ad_height %></p>
+<p><strong>Comment:</strong> <%= @advertising_order.comment %></p>
+<p><strong>Topic:</strong> <%= @advertising_order.ad_topic %></p>
+<p><strong>Image:</strong> <%= image_tag @advertising_order.ad_image.url %> <!-- використовуйте image_tag для відображення зображення --></p>
+<!-- Додайте інші деталі, які вам потрібні -->
+
+<%= link_to 'Back', advertising_orders_path %>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PrintHUB</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    
+    <div class = "topbar">
+      <div class = "top-line"></div>
+
+        <div class="container">
+          <div class="header">
+
+            <div class="logo header__logo">PrintHUB</div>
+          
+            <div class="right-bar">
+              <div class="user-name header__user-name">User name</div>
+
+              <div class="points header__points">Бонусні бали: 112</div>
+
+            </div> 
+            <div class="menu header__menu"><%= image_tag("menu.png", alt: "Меню", class: "menu_img") %></div>  
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= yield %>
+    
+    <div class="foot-linr">
+      <div class = "footer">
+        <div class="logo footer__logo">PrintHUB</div>
+
+        <div class="text footer__text">Залишайтеся на зв'язку. Звертайтесь до нас будь-яким зручним для вас способом:</div>
+
+        <div class="list-field">
+          
+          <div class="list">+380-96-566-43-33</div>
+          <div class="list">instagram/_serhij_</div>
+          <div class="list">serhiy90@gmail.com</div>
+          <div class="list">Івано-Франківськ вул. Залізнична б.11</div>
+        
+        </div>
+
+
+      </div>
+    </div>
+  </body>
+</html>

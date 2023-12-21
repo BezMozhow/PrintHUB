@@ -1,0 +1,148 @@
+<%= image_tag("2d956d510853e68854816ab7aea58582.jpeg", alt: "щось там", class: "background-photo") %>
+
+<div class = "container">
+  <div class = "order-content">
+
+    <h2>Замовити рекламний простір</h2>
+    <%= form_with(model: @advertising_order, url: advertising_orders_path, class: "form", local: true, multipart: true) do |form| %>
+
+        <div class="form-section">
+          <%= form.label "Тема реклами:", class: "label content__label" %>
+          <%= form.text_field :ad_topic%>
+        </div>
+
+        <div class="form-section">
+        <%= form.label "Кількість повторень:", class: "label content__label"%>
+        <%= form.text_field :number_of_inserts, class: "numerical-text-field"%>
+        </div>
+
+        <div class="form-section-horizontally">
+
+          <div class="form-section-horizontally">
+            <div class="form-section">
+              <%= form.label "Ширина простору см.", class: "label content__label" %>
+              <%= form.text_field :ad_width, class: "numerical-text-field", id: "advertising_order_ad_width" %>
+            </div>
+
+            <div class="form-section">
+              <%= form.label "Висота простору, см.", class: "label content__label" %>
+              <%= form.text_field :ad_height, class: "numerical-text-field", id: "advertising_order_ad_height" %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-coment-section">
+          <%= form.label "Коментар до замовлення:", class: "label content__label" %>
+          <%= form.text_area :comment, class: "comment_text_area" %>
+        </div>
+
+        <div class="form-section">
+          <div class="file-input-wrapper">
+            <%= form.label "Прикріпити файл до замовлення:", class: "label content__label" %>
+            
+            <%= form.file_field :ad_image, class: "file-input" %>
+            <%= form.label :ad_image, "Файл", class: "label content__label file-label" %>
+          </div>
+        </div>
+
+
+        <div class="form-section price-form-section">
+          <%= form.label "Приблизна вартість замовлення:", class: "label content__label" %>
+          <div class = "price" id="price-display">0 грн</div>
+        </div>
+      
+        <div >
+          <%= form.submit "Надіслати замовлення", class: "submit-button" %>
+        </div>
+    <% end %>
+      
+  </div>
+
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Отримати елементи форми
+    const widthField = document.getElementById('advertising_order_ad_width');
+    const heightField = document.getElementById('advertising_order_ad_height');
+    const priceDisplay = document.getElementById('price-display');
+
+    // Функція для вираховування вартості та відображення результату
+    function calculatePrice() {
+      const width = parseFloat(widthField.value) || 0;
+      const height = parseFloat(heightField.value) || 0;
+
+      // Множимо ширину на висоту, можна застосувати свій розрахунок
+      const price = width * height *80;
+
+      // Відображення результату на сторінці
+      priceDisplay.textContent = `${price} грн`;
+    }
+
+    // Викликати функцію при введенні користувача
+    widthField.addEventListener('input', calculatePrice);
+    heightField.addEventListener('input', calculatePrice);
+  });
+
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.form');
+
+    form.addEventListener('submit', function(event) {
+      if (!validateForm()) {
+        event.preventDefault();
+      }
+    });
+
+    function validateForm() {
+      let isValid = true;
+
+      // Очистка попередніх помилок
+      clearErrors();
+
+      // Перевірка на заповненість та правильність числових полів
+      const adWidthInput = document.getElementById('advertising_order_ad_width');
+      const adHeightInput = document.getElementById('advertising_order_ad_height');
+      const numberOfInsertsInput = document.getElementById('advertising_order_number_of_inserts');
+      const fileInput = document.getElementById('advertising_order_ad_image'); // Замініть на відповідний ID для файлового поля
+
+      const adWidth = parseFloat(adWidthInput.value);
+      const adHeight = parseFloat(adHeightInput.value);
+      const numberOfInserts = parseInt(numberOfInsertsInput.value);
+
+      // Перевірка чи всі поля заповнені
+      if (!adWidthInput.value || !adHeightInput.value || !numberOfInsertsInput.value || !fileInput.value) {
+        alert('Будь ласка, заповніть всі поля та прикріпіть файл.');
+        isValid = false;
+      } else {
+        // Перевірка на правильність числових полів
+        if (isNaN(numberOfInserts)) {
+          displayError(numberOfInsertsInput);
+          isValid = false;
+        } else if (isNaN(adWidth)) {
+          displayError(adWidthInput);
+          isValid = false;
+        } else if (isNaN(adHeight)) {
+          displayError(adHeightInput);
+          isValid = false;
+        }
+      }
+
+      return isValid;
+    }
+
+    function displayError(inputElement) {
+      inputElement.classList.add('error-border');
+    }
+
+    function clearErrors() {
+      const inputs = document.querySelectorAll('.numerical-text-field');
+      inputs.forEach(input => input.classList.remove('error-border'));
+    }
+  });
+</script>
+
